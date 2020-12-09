@@ -105,7 +105,7 @@ session_start();
 
   </nav>
   <?php
-  $query = "SELECT shop.name AS shop_name, product.* FROM product INNER JOIN shop ON shop.id = product.shop_id WHERE product.id = {$_GET['id']}";
+  $query = "SELECT shop.name AS shop_name, shop.image_url AS shop_image, product.* FROM product INNER JOIN shop ON shop.id = product.shop_id WHERE product.id = {$_GET['id']}";
   $product = mysqli_query($conn, $query);
   $data = mysqli_fetch_array($product);
   ?>
@@ -119,8 +119,12 @@ session_start();
       <div class="col-7">
         <div class=" d-flex flex-column">
           <p class="cart-title font-weight-light mb-1">
-            <i class="fas fa-store text-secondary"></i>
-            <?= $data['shop_name'] ?>
+            <div class="d-flex align-items-center">
+              <img style="width: 1.5rem; height: 1.5rem" src="<?= $data["shop_image"] ?>" class="rounded-circle z-depth-0 img-fluid mr-2" alt="avatar image">
+              <span class="text-capitalize">
+                <?= $data['shop_name'] ?>
+              </span>
+            </div>
           </p>
           <h2 class="card-text mb-1 font-weight-bold mb-2"><?= $data['name'] ?></h2>
           <p>

@@ -169,7 +169,8 @@ $shop_id = $_GET['shop_id'];
     <div class="w-100">
       <div class="card-deck">
         <?php
-        $query = "SELECT shop.name AS shop_name, product.* FROM product INNER JOIN shop ON product.shop_id = $shop_id AND shop.id = $shop_id";
+        $query = "SELECT shop.name AS shop_name, shop.image_url AS shop_image, product.* FROM product INNER JOIN shop ON product.shop_id = $shop_id AND shop.id = $shop_id";
+        echo $query;
         $products = mysqli_query($conn, $query);
         $idx = 0;
         while ($data = mysqli_fetch_assoc($products)) {
@@ -181,8 +182,13 @@ $shop_id = $_GET['shop_id'];
               <h5 class="card-text mb-1"><?= $data['name'] ?></h5>
               <p class="cart-title text-danger font-weight-bold mb-2"><?= "Rp " . number_format($data['price'], 2, ',', '.') ?></p>
               <p class="cart-title font-weight-light mb-1">
-                <i class="fas fa-store text-secondary"></i>
-                <?= $data['shop_name'] ?>
+                <div class="d-flex align-items-center">
+                  <img style="width: 1.5rem; height: 1.5rem" src="<?= $data["shop_image"] ?>" class="rounded-circle z-depth-0 img-fluid mr-2" alt="avatar image">
+                  <span class="text-capitalize">
+                    <?= $data['shop_name'] ?>
+                  </span>
+                </div>
+
               </p>
               <p>
                 <i class="fas fa-star checked"></i>
