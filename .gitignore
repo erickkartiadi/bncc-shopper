@@ -1,1 +1,6 @@
 test
+images/*
+!images/goods.png
+!images/watch.png
+!images/user.png
+!images/store.png
