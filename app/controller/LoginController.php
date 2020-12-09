@@ -16,7 +16,7 @@ if ($check > 0) {
   $_SESSION['user_id'] = $data['id'];
   $_SESSION['full_name'] = $data['first_name'] . " " . $data['last_name'];
   $_SESSION['status'] = "login";
-  $path = "/index.php";
+  $path = "../view/index.php";
   header("location: $path");
 } else {
   echo "Invalid email or password!";

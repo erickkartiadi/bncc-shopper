@@ -35,10 +35,10 @@
           Fill your shop details
         </h6>
         <div class="container-fluid mt-4">
-          <form class="container" enctype="multipart/form-data" method="POST" action="/app/controller/ShopController.php">
+          <form class="container" enctype="multipart/form-data" method="POST" action="../controller/ShopController.php">
             <div class="form-group d-flex justify-content-center mb-5">
               <div style="width: 20rem; height: 20rem" class="rounded-circle p-5 overflow-hidden bg-light border ">
-                <img id="store_img" class="img-fluid" src="/images/store.png" alt="">
+                <img id="store_img" class="img-fluid" src="../../images/store.png" alt="">
               </div>
             </div>
             <div class="form-group">

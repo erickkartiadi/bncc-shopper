@@ -2,5 +2,5 @@
 
 session_start();
 session_destroy();
-$path = "../../index.php";
+$path = "../view/index.php";
 header("location: $path");

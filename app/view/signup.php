@@ -21,7 +21,7 @@
             Sign In</a>
         </h6>
         <div class="container-fluid mt-4">
-          <form class="container" method="POST" action="/app/controller/SignupController.php">
+          <form class="container" method="POST" action="../../app/controller/SignupController.php">
             <div class="row">
               <div class="form-group col-6 pr-1">
                 <input name="first_name" type="text" class="form-control my-form_input" placeholder="First Name">

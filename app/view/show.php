@@ -20,7 +20,7 @@ session_start();
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-    <a class="my_brand navbar-brand font-weight-bold text-uppercase" href="/index.php">
+    <a class="my_brand navbar-brand font-weight-bold text-uppercase" href="./index.php">
       Shopper
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@ session_start();
             <a style="cursor: pointer;" class="nav-link" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="d-flex align-items-center">
                 <div class="mr-3 rounded-circle p-1 bg-light border" style="width: 2.5rem; height:2.5rem; overflow: hidden">
-                  <img src="<?= $check > 0 ? $data["image_url"] : "/images/store.png" ?>" class=" z-depth-0 img-fluid mr-2" alt="avatar image">
+                  <img src="<?= $check > 0 ? $data["image_url"] : "../../images/store.png" ?>" class=" z-depth-0 img-fluid mr-2" alt="avatar image">
                 </div>
                 <span class="text-capitalize">
                   <?= $check > 0 ?  $data['name'] : "Store" ?>
@@ -74,13 +74,13 @@ session_start();
                 if ($check <= 0) {
                 ?>
                   <p class="text-center">You don't have a shop yet</p>
-                  <a class="btn btn-primary" href="/app/view/register_shop.php">Open Shop</a>
+                  <a class="btn btn-primary" href="./register_shop.php">Open Shop</a>
                 <?php
                 } else {
                   $_SESSION['shop_id'] = $data['id'];
                 ?>
-                  <a class="btn btn-link mt-n2" href="/app/view/shop.php?shop_id=<?= $_SESSION['shop_id'] ?>">View Your Products</a>
-                  <a class="btn btn-success" href="/app/view/add_product.php">Add Product</a>
+                  <a class="btn btn-link mt-n2" href="./shop.php?shop_id=<?= $_SESSION['shop_id'] ?>">View Your Products</a>
+                  <a class="btn btn-success" href="./add_product.php">Add Product</a>
                 <?php
                 }
                 ?>
@@ -89,12 +89,11 @@ session_start();
           </li>
           <li class="nav-item dropdown">
             <a style="cursor: pointer;" class="nav-link" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img style="width: 2.5rem" src="/images/user.png" class="rounded-circle z-depth-0 img-fluid mr-2" alt="avatar image">
+              <img style="width: 2.5rem" src="../../images/user.png" class="rounded-circle z-depth-0 img-fluid mr-2" alt="avatar image">
               <span><?= $_SESSION["full_name"] ?></span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-              <a class="dropdown-item" href="#">My account</a>
-              <a class="dropdown-item" href="/app/controller/LogoutController.php">Log out</a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-info text-center" aria-labelledby="navbarDropdownMenuLink-4">
+              <a class="btn btn-danger" href="/app/controller/LogoutController.php">Log out</a>
             </div>
           </li>
         <?php
@@ -147,7 +146,7 @@ session_start();
       <div class="row">
         <div class="col-3 row">
           <div class="col-4">
-            <img class="img-fluid" src="/images/user.png" alt="">
+            <img class="img-fluid" src="./images/user.png" alt="">
           </div>
           <div class="col-8">
             <span class="user_review">Erick</span>
@@ -172,7 +171,7 @@ session_start();
       <div class="row mt-5">
         <div class="col-3 row">
           <div class="col-4">
-            <img class="img-fluid" src="/images/user.png" alt="">
+            <img class="img-fluid" src="./images/user.png" alt="">
           </div>
           <div class="col-8">
             <span class="user_review">Tomi</span>

@@ -67,7 +67,7 @@ a.my_card:hover {
 
 .my-image_container {
   height: 70vh;
-  background-image: url("/images/watch.jpg");
+  background-image: url("../../../images/watch.jpg");
   background-position: center center;
   background-size: cover;
 }

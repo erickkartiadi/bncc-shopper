@@ -36,10 +36,10 @@
             Fill your product details
           </h6>
           <div class="container-fluid mt-4">
-            <form class="container" enctype="multipart/form-data" method="POST" action="/app/controller/ProductController.php">
+            <form class="container" enctype="multipart/form-data" method="POST" action="../../app/controller/ProductController.php">
               <div class="form-group d-flex justify-content-center mb-5">
                 <div style="width: 20rem; height: 20rem" class="rounded-sm p-5 overflow-hidden bg-light border ">
-                  <img id="store_img" class="img-fluid" src="/images/goods.png" alt="">
+                  <img id="store_img" class="img-fluid" src="../../images/goods.png" alt="">
                 </div>
               </div>
               <div class="form-group">

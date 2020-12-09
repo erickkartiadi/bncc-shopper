@@ -18,7 +18,7 @@
         <h5 class="my-card_title text-center">Sign In</h5>
 
         <div class="container-fluid mt-4">
-          <form class="container" action="/app/controller/LoginController.php" method="POST">
+          <form class="container" action="../../app/controller/LoginController.php" method="POST">
             <div class="form-group">
               <input name="email" type="email" class="form-control my-form_input" placeholder="Email">
             </div>
