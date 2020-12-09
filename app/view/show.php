@@ -20,7 +20,7 @@ session_start();
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-    <a class="my_brand navbar-brand font-weight-bold text-uppercase" href="index.html">
+    <a class="my_brand navbar-brand font-weight-bold text-uppercase" href="/index.php">
       Shopper
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555" aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
