@@ -1,7 +1,7 @@
 <?php
 include("../../config/config.php");
 session_start();
-$shop_id = $_GET['shop_id'];
+
 ?>
 
 <!DOCTYPE html>
@@ -12,15 +12,10 @@ $shop_id = $_GET['shop_id'];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-  <link rel="stylesheet" href="/app/view/css/app.css">
+  <link rel="stylesheet" href="css/app.css">
   <link href="https://fonts.googleapis.com/css2?family=Amaranth:wght@400;700&family=Titillium+Web:wght@300;400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-  <script>
-    function show(id) {
-      window.location = `/app/view/show.php?id=${id}`;
-    }
-  </script>
 </head>
 
 <body>
@@ -54,7 +49,7 @@ $shop_id = $_GET['shop_id'];
           empty($_SESSION['status'])
         ) {
         ?>
-          <a href="login.php">Sign In</a>
+          <a href="/app/view/login.php">Sign In</a>
         <?php
         } else {
           $query = "SELECT * FROM shop WHERE user_id={$_SESSION['user_id']}";
@@ -84,7 +79,7 @@ $shop_id = $_GET['shop_id'];
                 } else {
                   $_SESSION['shop_id'] = $data['id'];
                 ?>
-                  <a class="btn btn-link mt-n2" href="/app/view/products.php">View Your Products</a>
+                  <a class="btn btn-link mt-n2" href="/app/view/shop.php?shop_id=<?= $_SESSION['shop_id'] ?>">View Your Products</a>
                   <a class="btn btn-success" href="/app/view/add_product.php">Add Product</a>
                 <?php
                 }
@@ -109,128 +104,94 @@ $shop_id = $_GET['shop_id'];
     </div>
 
   </nav>
-  <div class="container mt-5 pt-5">
-    <div class="jumbotron p-4 bg-white shadow-sm">
-      <?php
-      $query = "SELECT * FROM shop WHERE id = $shop_id";
-      $shop = mysqli_query($conn, $query);
-      $shop_data = mysqli_fetch_array($shop);
-      // echo $shop_data['name'];
-      ?>
+  <?php
+  $query = "SELECT shop.name AS shop_name, product.* FROM product INNER JOIN shop ON shop.id = product.shop_id WHERE product.id = {$_GET['id']}";
+  $product = mysqli_query($conn, $query);
+  $data = mysqli_fetch_array($product);
+  ?>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-5">
+        <div class="card">
+          <img class="card-img-top" src="<?= $data['image_url'] ?>" alt="Card image cap">
+        </div>
+      </div>
+      <div class="col-7">
+        <div class=" d-flex flex-column">
+          <p class="cart-title font-weight-light mb-1">
+            <i class="fas fa-store text-secondary"></i>
+            <?= $data['shop_name'] ?>
+          </p>
+          <h2 class="card-text mb-1 font-weight-bold mb-2"><?= $data['name'] ?></h2>
+          <p>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star"></i>
+            &nbsp;(<?= $data['sold'] ?>)
+          </p>
+          <h2 class="cart-title text-danger font-weight-bold mb-2"><?= "Rp " . number_format($data['price'], 2, ',', '.') ?>0</h2>
+          <p>
+            <?= $data['description'] ?>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-5">
+      <h1 class="title1 m-0 mb-5">Review</h1>
       <div class="row">
-        <div class="col-2">
-          <div style="width: 10rem; height: 10rem; margin-top: -6rem" class="rounded-circle p-4 overflow-hidden bg-light border">
-            <img id="store_img" class="img-fluid" alt="" src="<?php echo $shop_data['image_url'] ?>">
+        <div class="col-3 row">
+          <div class="col-4">
+            <img class="img-fluid" src="/images/user.png" alt="">
+          </div>
+          <div class="col-8">
+            <span class="user_review">Erick</span>
+            <br>
+            <span class="user_review_time">Today</span>
           </div>
         </div>
-        <div class="col-3">
-          <h1 class="title1 mb-2"><?php echo $shop_data['name'] ?></h1>
-          <i class="fas fa-map-pin text-muted"></i>
-          <span>
-            <?= $shop_data['location'] ?>
-          </span>
-          <div class="mt-3">
-            <button class="btn btn-primary pl-4 pr-4">Follow</button>
-            <button class="btn btn-primary pl-4 pr-4">Chat</button>
+        <div class="col-9">
+          <p>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star"></i>
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi nostrum dolorum ex nesciunt recusandae
+            numquam beatae atque libero odit iste, molestiae illo quam delectus. Rem?
+          </p>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-3 row">
+          <div class="col-4">
+            <img class="img-fluid" src="/images/user.png" alt="">
+          </div>
+          <div class="col-8">
+            <span class="user_review">Tomi</span>
+            <br>
+            <span class="user_review_time">Yesterday</span>
           </div>
         </div>
-        <div class="col-7">
-          <h4 class="title1 mb-2">Product Sold</h4>
-          <h1 class="font-weight-bold text-success">
-            <?php
-            $query = "SELECT SUM(sold) AS total_sold FROM product WHERE shop_id = $shop_id";
-            $sold = mysqli_query($conn, $query);
-            $sold_data = mysqli_fetch_assoc($sold);
-            echo $sold_data['total_sold'];
-            ?>
-          </h1>
+        <div class="col-9">
+          <p>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+            <i class="fas fa-star checked"></i>
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi nostrum dolorum ex nesciunt recusandae
+            numquam beatae atque libero odit iste, molestiae illo quam delectus. Rem?
+          </p>
         </div>
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="d-flex align-items-end mb-4 justify-content-between">
-      <h1 class="title1 m-0">Home</h1>
-      <?php
-      if (
-        !empty($_SESSION['shop_id'])
-      ) {
-        if (
-          $_SESSION['shop_id'] == $_GET['shop_id']
-        ) {
-      ?>
-          <a class="btn btn-primary" href="add_product.php">Add Product</a>
-      <?php
-        }
-      }
-      ?>
-    </div>
-
-    <div class="w-100">
-      <div class="card-deck">
-        <?php
-        $query = "SELECT shop.name AS shop_name, product.* FROM product INNER JOIN shop ON product.shop_id = $shop_id AND shop.id = $shop_id";
-        $products = mysqli_query($conn, $query);
-        $idx = 0;
-        while ($data = mysqli_fetch_assoc($products)) {
-          $idx++;
-        ?>
-          <div style="cursor:pointer" onclick="show(<?= $data['id'] ?>)" id="product-card" class="card mb-4">
-            <img class="card-img-top" src="<?= $data['image_url'] ?>" alt="<?= $data['name'] ?>">
-            <div class="card-body">
-              <h5 class="card-text mb-1"><?= $data['name'] ?></h5>
-              <p class="cart-title text-danger font-weight-bold mb-2"><?= "Rp " . number_format($data['price'], 2, ',', '.') ?></p>
-              <p class="cart-title font-weight-light mb-1">
-                <i class="fas fa-store text-secondary"></i>
-                <?= $data['shop_name'] ?>
-              </p>
-              <p>
-                <i class="fas fa-star checked"></i>
-                <i class="fas fa-star checked"></i>
-                <i class="fas fa-star checked"></i>
-                <i class="fas fa-star checked"></i>
-                <i class="fas fa-star"></i>
-                &nbsp;( <?= $data['sold'] ?>
-                )
-              </p>
-            </div>
-          </div>
-          <?php
-          if ($idx % 2 == 0) {
-          ?>
-            <div class="w-100 d-none d-sm-block d-md-none">
-              <!-- wrap every 2 on sm-->
-            </div>
-          <?php
-          }
-          if ($idx % 3 == 0) {
-          ?>
-            <div class="w-100 d-none d-md-block d-lg-none">
-              <!-- wrap every 3 on md-->
-            </div>
-          <?php
-          }
-          if ($idx % 4 == 0) {
-          ?>
-            <div class="w-100 d-none d-lg-block d-xl-none">
-              <!-- wrap every 4 on lg-->
-            </div>
-          <?php
-          }
-          if ($idx % 5 == 0) {
-
-          ?>
-            <div class="w-100 d-none d-xl-block">
-              <!-- wrap every 5 on xl-->
-            </div>
-        <?php
-          }
-        }
-        ?>
-      </div>
-    </div>
-  </div>
-
   <footer class="w-100 bg-dark p-5 mt-5">
     <div class="container">
       <div class="row">
@@ -302,8 +263,7 @@ $shop_id = $_GET['shop_id'];
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
   </script>
-
-
+  </script>
 </body>
 
 </html>

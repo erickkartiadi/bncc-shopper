@@ -16,6 +16,11 @@ session_start();
   <link href="https://fonts.googleapis.com/css2?family=Amaranth:wght@400;700&family=Titillium+Web:wght@300;400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <script>
+    function show(id) {
+      window.location = `/app/view/show.php?id=${id}`;
+    }
+  </script>
 </head>
 
 <body>
@@ -125,7 +130,7 @@ session_start();
         while ($data = mysqli_fetch_assoc($products)) {
           $idx++;
         ?>
-          <div class="card mb-4">
+          <div style="cursor:pointer" onclick="show(<?= $data['id'] ?>)" id="product-card" class="card mb-4">
             <img class="card-img-top" src="<?= $data['image_url'] ?>" alt="<?= $data['name'] ?>">
             <div class="card-body">
               <h5 class="card-text mb-1"><?= $data['name'] ?></h5>
@@ -246,7 +251,6 @@ session_start();
       </div>
     </div>
   </footer>
-
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==">
   </script>
