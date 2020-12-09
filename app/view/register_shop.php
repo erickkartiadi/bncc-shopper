@@ -48,7 +48,10 @@
               </div>
             </div>
             <div class="form-group">
-              <input name="name" type="text" class="form-control " placeholder="Shop Name">
+              <input required name="name" type="text" class="form-control " placeholder="Shop Name">
+            </div>
+            <div class="form-group">
+              <input required name="location" type="text" class="form-control " placeholder="Location">
             </div>
 
             <button type="submit" class="w-100 btn btn-primary">Open Your Shop</button>

@@ -1,7 +1,7 @@
 <?php
-include("config/config.php");
+include("../../config/config.php");
 session_start();
-
+$shop_id = $_GET['shop_id'];
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ session_start();
           empty($_SESSION['status'])
         ) {
         ?>
-          <a href="app/view/login.php">Sign In</a>
+          <a href="login.php">Sign In</a>
         <?php
         } else {
           $query = "SELECT * FROM shop WHERE user_id={$_SESSION['user_id']}";
@@ -79,7 +79,7 @@ session_start();
                 } else {
                   $_SESSION['shop_id'] = $data['id'];
                 ?>
-                  <a class="btn btn-link mt-n2" href="/app/view/shop.php?shop_id=<?= $_SESSION['shop_id'] ?>">View Your Products</a>
+                  <a class="btn btn-link mt-n2" href="/app/view/products.php">View Your Products</a>
                   <a class="btn btn-success" href="/app/view/add_product.php">Add Product</a>
                 <?php
                 }
@@ -104,22 +104,67 @@ session_start();
     </div>
 
   </nav>
-  <div class="container-fluid p-0">
-    <div class="my-image_container">
-
+  <div class="container mt-5 pt-5">
+    <div class="jumbotron p-4 bg-white shadow-sm">
+      <?php
+      $query = "SELECT * FROM shop WHERE id = $shop_id";
+      $shop = mysqli_query($conn, $query);
+      $shop_data = mysqli_fetch_array($shop);
+      // echo $shop_data['name'];
+      ?>
+      <div class="row">
+        <div class="col-2">
+          <div style="width: 10rem; height: 10rem; margin-top: -6rem" class="rounded-circle p-4 overflow-hidden bg-light border">
+            <img id="store_img" class="img-fluid" alt="" src="<?php echo $shop_data['image_url'] ?>">
+          </div>
+        </div>
+        <div class="col-3">
+          <h1 class="title1 mb-2"><?php echo $shop_data['name'] ?></h1>
+          <i class="fas fa-map-pin text-muted"></i>
+          <span>
+            <?= $shop_data['location'] ?>
+          </span>
+          <div class="mt-3">
+            <button class="btn btn-primary pl-4 pr-4">Follow</button>
+            <button class="btn btn-primary pl-4 pr-4">Chat</button>
+          </div>
+        </div>
+        <div class="col-7">
+          <h4 class="title1 mb-2">Product Sold</h4>
+          <h1 class="font-weight-bold text-success">
+            <?php
+            $query = "SELECT SUM(sold) AS total_sold FROM product WHERE shop_id = $shop_id";
+            $sold = mysqli_query($conn, $query);
+            $sold_data = mysqli_fetch_assoc($sold);
+            echo $sold_data['total_sold'];
+            ?>
+          </h1>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="container mt-5">
+  <div class="container">
     <div class="d-flex align-items-end mb-4 justify-content-between">
-      <h1 class="title1 m-0">For You </h1>
-      <a class="see_all" href="#">See All</a>
+      <h1 class="title1 m-0">Home</h1>
+      <?php
+      if (
+        !empty($_SESSION['shop_id'])
+      ) {
+        if (
+          $_SESSION['shop_id'] == $_GET['shop_id']
+        ) {
+      ?>
+          <a class="btn btn-primary" href="add_product.php">Add Product</a>
+      <?php
+        }
+      }
+      ?>
     </div>
 
     <div class="w-100">
       <div class="card-deck">
         <?php
-        $query = "SELECT shop.name AS shop_name, product.* FROM shop INNER JOIN product ON shop.id = product.shop_id";
+        $query = "SELECT shop.name AS shop_name, product.* FROM product INNER JOIN shop ON product.shop_id = $shop_id AND shop.id = $shop_id";
         $products = mysqli_query($conn, $query);
         $idx = 0;
         while ($data = mysqli_fetch_assoc($products)) {
@@ -179,8 +224,8 @@ session_start();
         ?>
       </div>
     </div>
-
   </div>
+
   <footer class="w-100 bg-dark p-5 mt-5">
     <div class="container">
       <div class="row">
@@ -252,6 +297,8 @@ session_start();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
   </script>
+
+
 </body>
 
 </html>
