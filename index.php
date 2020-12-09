@@ -40,22 +40,65 @@ session_start();
                 </button>
               </div>
             </div>
-            <?php
-            if ($_SESSION['status'] != "login") {
-            ?>
-              <a href="app/view/login.php">Sign In</a>
-            <?php
-            } else {
-            ?>
-
-            <?php
-            }
-            ?>
           </form>
         </li>
       </ul>
-      <ul>
-
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <?php
+        if (
+          empty($_SESSION['status'])
+        ) {
+        ?>
+          <a href="app/view/login.php">Sign In</a>
+        <?php
+        } else {
+          $query = "SELECT * FROM shop WHERE user_id={$_SESSION['user_id']}";
+          $store = mysqli_query($conn, $query);
+          $check = mysqli_num_rows($store);
+          $data = mysqli_fetch_array($store);
+        ?>
+          <li class="nav-item dropdown mr-3">
+            <a style="cursor: pointer;" class="nav-link" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="d-flex align-items-center">
+                <div class="mr-3 rounded-circle p-1 bg-light border" style="width: 2.5rem; height:2.5rem; overflow: hidden">
+                  <img src="<?= $check > 0 ? $data["image_url"] : "/images/store.png" ?>" class=" z-depth-0 img-fluid mr-2" alt="avatar image">
+                </div>
+                <span class="text-capitalize">
+                  <?= $check > 0 ?  $data['name'] : "Store" ?>
+                </span>
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-info ml-n5" aria-labelledby="navbarDropdownMenuLink-4">
+              <div style="width: 17rem" class="pl-3 pr-3 pt-1 pb-1 d-flex flex-column justify-content-center">
+                <?php
+                if ($check <= 0) {
+                ?>
+                  <p class="text-center">You don't have a shop yet</p>
+                  <a class="btn btn-primary" href="/app/view/register_shop.php">Open Shop</a>
+                <?php
+                } else {
+                ?>
+                  <a class="btn btn-link mt-n2">View Your Products</a>
+                  <a class="btn btn-success" href="/app/view/add_product.php">Add Product</a>
+                <?php
+                }
+                ?>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a style="cursor: pointer;" class="nav-link" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img style="width: 2.5rem" src="/images/user.png" class="rounded-circle z-depth-0 img-fluid mr-2" alt="avatar image">
+              <span><?= $_SESSION["full_name"] ?></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+              <a class="dropdown-item" href="#">My account</a>
+              <a class="dropdown-item" href="/app/controller/LogoutController.php">Log out</a>
+            </div>
+          </li>
+        <?php
+        }
+        ?>
       </ul>
     </div>
 
@@ -438,7 +481,7 @@ session_start();
   </footer>
 
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
   </script>
